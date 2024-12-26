@@ -47,6 +47,7 @@ public class EmployeeStageController {
 
     @PostMapping(value={"save"})
     public void saveEmployees(@RequestBody List<EmployeeDto> employeeDtoList) {
+        log.info("saveEmployees(-) in");
         this.employeeService.saveEmployees(employeeDtoList);
     }
 }

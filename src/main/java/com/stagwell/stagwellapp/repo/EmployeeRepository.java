@@ -23,5 +23,5 @@ extends JpaRepository<SwmEmployeeInfo, Integer> {
 
     @Modifying
     @Query(nativeQuery=true, value="UPDATE swt_overall_bonus_pool_budget SET cash_bonus=:cashBonusPresent, stock_bonus=:stockBonusPresent, stock_premium=:stockPremiumPresent, base_comp=:baseCompPresent, total_bonus=:totalBonusPresent, status=:status WHERE employee_id=:employeeId AND year=:year")
-    public void saveEmployee(double var1, double var3, double var5, double var7, double var9, String var11, String var12, int var13);
+    public void saveEmployee(double cashBonusPresent, double stockBonusPresent, double stockPremiumPresent, double baseCompPresent, double totalBonusPresent, String status, String employeeId, int year);
 }

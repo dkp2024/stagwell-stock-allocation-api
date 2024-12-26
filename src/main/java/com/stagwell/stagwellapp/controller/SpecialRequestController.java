@@ -19,6 +19,8 @@ import com.stagwell.stagwellapp.dto.SpecialRequestDto;
 import com.stagwell.stagwellapp.service.EntityService;
 import com.stagwell.stagwellapp.service.SpecialRequestService;
 import java.util.List;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value={"sr"})
+@Slf4j
 public class SpecialRequestController {
     @Autowired
     SpecialRequestService specialRequestService;
@@ -35,6 +38,7 @@ public class SpecialRequestController {
 
     @RequestMapping(value={"save"})
     public void saveSR(@RequestBody SpecialRequestDto specialRequestDto) {
+        log.info("saveSR(-) in");
         this.specialRequestService.saveSpecialRequest(specialRequestDto);
         List<Integer> entityByAgencyIds = this.entityService.getEntityByAgencyId(specialRequestDto.getAgencyId());
         entityByAgencyIds.forEach(e -> this.entityService.updateStageOfEntity("Stage 4", e.intValue()));
@@ -42,6 +46,7 @@ public class SpecialRequestController {
 
     @RequestMapping(value={"approve"})
     public void saveSR(@RequestBody SpecialRequestApproveDto specialRequestApproveDto) {
+        log.info("saveSR(-) approve in");
         this.specialRequestService.updateSpecialRequest(specialRequestApproveDto);
     }
 
