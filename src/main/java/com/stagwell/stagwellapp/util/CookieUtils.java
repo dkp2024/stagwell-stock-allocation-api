@@ -27,7 +27,7 @@ public class CookieUtils {
         }
         log.info("Cookies received:{}",cookieVAL);
         if(!ObjectUtils.isEmpty(cookieVAL)){
-            String []values= cookieVAL.split("_"); //UserController for values what set
+            String []values= cookieVAL.split("___"); //UserController for values what set
             map.put("userId",!ObjectUtils.isEmpty(values[0])?AESUtils.decrypt(values[0]):null);
             map.put("email",!ObjectUtils.isEmpty(values[1])?AESUtils.decrypt(values[1]):null);
         }

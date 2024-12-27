@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.stagwell.stagwellapp.util.CookieUtils;
+import com.stagwell.stagwellapp.util.ValidateCookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.websocket.server.PathParam;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +39,12 @@ public class AgencyStageController {
     @GetMapping("list")
     public List<UserAgencyDto> getAllUserAgency(HttpServletRequest request) throws Exception {
        log.info("getAllUserAgency(-) in");
-        String email=  CookieUtils.getCookie(request, Constants.COOKIENAME).get("email");
+       Map<String,String> map= CookieUtils.getCookie(request, Constants.COOKIENAME);
+        if(!ValidateCookie.validateCookies(map,new String[]{"email"})){
+         throw new Exception("User session is not validated, Please login again!");
+        }
+        String email= map.get("email");
+
         log.info("User email: {}",email);
         return this.agencyService.getAllSwmUsers(email);
     }

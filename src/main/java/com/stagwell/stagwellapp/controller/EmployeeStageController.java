@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.stagwell.stagwellapp.util.CookieUtils;
+import com.stagwell.stagwellapp.util.ValidateCookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,10 @@ public class EmployeeStageController {
     @RequestMapping(value={"list"})
     public List<EmployeeDto> getListOfEmployeesByEntity(HttpServletRequest request) throws Exception {
         log.info("getListOfEntitiesByAgency(-) in");
-        Map<String,String > map = CookieUtils.getCookie(request, Constants.COOKIENAME);
+        Map<String,String> map= CookieUtils.getCookie(request, Constants.COOKIENAME);
+        if(!ValidateCookie.validateCookies(map,new String[]{"userId"})){
+            throw new Exception("User session is not validated, Please login again!");
+        }
         String userId= map.get("userId");
         log.info("userId: {}",userId);
         return this.employeeService.getEmployeeByEntity(userId);

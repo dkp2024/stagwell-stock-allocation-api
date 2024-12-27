@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.stagwell.stagwellapp.util.CookieUtils;
+import com.stagwell.stagwellapp.util.ValidateCookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -46,6 +47,9 @@ public class EntityStageController {
     public List<UserEntityDto> getListOfEntitiesByAgency(HttpServletRequest request) throws Exception {
         log.info("getListOfEntitiesByAgency(-) in");
         Map<String,String > map = CookieUtils.getCookie(request, Constants.COOKIENAME);
+        if(!ValidateCookie.validateCookies(map,new String[]{"email","userId"})){
+            throw new Exception("User session is not validated, Please login again!");
+        }
         String email= map.get("email");
         String userId= map.get("userId");
         log.info("User email: {} userId: {}",email,userId);
@@ -56,6 +60,9 @@ public class EntityStageController {
     public List<UserEntityDto> getListOfEntitiesByAgencies(HttpServletRequest request) throws Exception {
         log.info("getListOfEntitiesByAgencies(-) in");
         Map<String,String > map = CookieUtils.getCookie(request, Constants.COOKIENAME);
+        if(!ValidateCookie.validateCookies(map,new String[]{"email","userId"})){
+            throw new Exception("User session is not validated, Please login again!");
+        }
         String email= map.get("email");
         String userId= map.get("userId");
         log.info("User email: {} userId: {}, agencyId",email,userId);
