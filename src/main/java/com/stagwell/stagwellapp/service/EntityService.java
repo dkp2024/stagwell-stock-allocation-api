@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +27,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Slf4j
 public class EntityService {
-    private static final Logger log = LogManager.getLogger(EntityService.class);
     @Autowired
     UserRepository userRepository;
 
     public List<UserEntityDto> getEntityListByAgency(String agency, int userId) {
+        log.info("getEntityListByAgency(-) in service");
         List<Map<String, Object>> allEntitiesByAgency = this.userRepository.findAllEntitiesByAgency(userId);
         return allEntitiesByAgency.stream().map(a -> {
+            //log.info("Fetched data: {}",a.toString());
             UserEntityDto userEntityDto = new UserEntityDto();
             userEntityDto.setEntityName((String)a.get("entity"));
             userEntityDto.setAmountForCash(((Integer)a.get("amount_allocated_to_cash")).doubleValue());
