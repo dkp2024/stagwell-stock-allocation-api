@@ -45,7 +45,7 @@ public class EntityStageController {
 
     @RequestMapping(value={"list"})
     public List<UserEntityDto> getListOfEntitiesByAgency(HttpServletRequest request) throws Exception {
-        log.info("getListOfEntitiesByAgency(-) in");
+        log.info("getListOfEntitiesByAgency(-) in list");
         Map<String,String > map = CookieUtils.getCookie(request, Constants.COOKIENAME);
         if(!ValidateCookie.validateCookies(map,new String[]{"email","userId"})){
             throw new Exception("User session is not validated, Please login again!");
@@ -55,10 +55,10 @@ public class EntityStageController {
         log.info("User email: {} userId: {}",email,userId);
         return this.entityService.getEntityListByAgency(email, Integer.parseInt(userId));
     }
-
+/*
     @RequestMapping(value={"listofagency"})
     public List<UserEntityDto> getListOfEntitiesByAgencies(HttpServletRequest request) throws Exception {
-        log.info("getListOfEntitiesByAgencies(-) in");
+        log.info("getListOfEntitiesByAgencies(-) in listofagency");
         Map<String,String > map = CookieUtils.getCookie(request, Constants.COOKIENAME);
         if(!ValidateCookie.validateCookies(map,new String[]{"email","userId"})){
             throw new Exception("User session is not validated, Please login again!");
@@ -68,7 +68,7 @@ public class EntityStageController {
         log.info("User email: {} userId: {}, agencyId",email,userId);
         List<UserEntityDto> entityList = this.entityService.getEntityListByAgency(email, Integer.parseInt(userId));
         return entityList.stream().filter(a -> a.getAgencyId() == 104).collect(Collectors.toList());
-    }
+    }*/
 
     @PostMapping(value={"save"})
     public void saveEntities(@RequestBody List<UserEntityDto> userEntityDtoList) {
