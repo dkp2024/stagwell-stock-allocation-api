@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.stagwell</groupId>
-	<artifactId>stagwellapp</artifactId>
+	<artifactId>stagwell-stock-allocation-api</artifactId>
 	<version>1.0</version>
-	<name>stagwellapp</name>
-	<description>stagwellapp</description>
+	<name>stagwell-stock-allocation-api</name>
+	<description>stagwell-stock-allocation-api</description>
 	<url/>
 	<licenses>
 		<license/>
